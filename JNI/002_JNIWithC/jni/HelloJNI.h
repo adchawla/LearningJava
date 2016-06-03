@@ -23,6 +23,14 @@ JNIEXPORT void JNICALL Java_HelloJNI_sayHello
 JNIEXPORT jdouble JNICALL Java_HelloJNI_average
   (JNIEnv *, jobject, jint, jint);
 
+/*
+ * Class:     HelloJNI
+ * Method:    sayHello2
+ * Signature: (Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_HelloJNI_sayHello2
+  (JNIEnv *, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif
