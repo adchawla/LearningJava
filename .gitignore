@@ -53,3 +53,5 @@ local.properties
 *.jnilib
 
 *.so
+
+*.o
