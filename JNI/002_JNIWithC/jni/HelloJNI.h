@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT void JNICALL Java_HelloJNI_sayHello
   (JNIEnv *, jobject);
 
+/*
+ * Class:     HelloJNI
+ * Method:    average
+ * Signature: (II)D
+ */
+JNIEXPORT jdouble JNICALL Java_HelloJNI_average
+  (JNIEnv *, jobject, jint, jint);
+
 #ifdef __cplusplus
 }
 #endif
