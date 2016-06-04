@@ -63,6 +63,14 @@ JNIEXPORT void JNICALL Java_HelloJNI_modifyInstanceVariables
 JNIEXPORT void JNICALL Java_HelloJNI_modifyStaticVariable
   (JNIEnv *, jobject);
 
+/*
+ * Class:     HelloJNI
+ * Method:    sModifyStaticVariable
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_HelloJNI_sModifyStaticVariable
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif

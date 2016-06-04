@@ -34,6 +34,8 @@ public class HelloJNI {
 	   // a native method with can change the value of the static field.
 	   private native void modifyStaticVariable();
 	   
+	   private static native void sModifyStaticVariable();
+	   
 	   // Test Driver
 	   public static void main(String[] args) {
 		  HelloJNI obj = new HelloJNI();
@@ -58,6 +60,12 @@ public class HelloJNI {
 	    		  + HelloJNI.dNumber );
 	      obj.modifyStaticVariable();
 	      System.out.println("After invocation of modifyStaticVariable function: dNumber = "
+	    		  + HelloJNI.dNumber );
+	      
+	      System.out.println("Before invocation of sModifyStaticVariable function: dNumber = "
+	    		  + HelloJNI.dNumber );
+	      HelloJNI.sModifyStaticVariable();
+	      System.out.println("After invocation of sModifyStaticVariable function: dNumber = "
 	    		  + HelloJNI.dNumber );
 	      
 	   }

@@ -71,7 +71,7 @@ JNIEXPORT void JNICALL Java_HelloJNI_modifyInstanceVariables(JNIEnv * env, jobje
 
 	// Create a C String from the jstring
 	const char * cMessage = env->GetStringUTFChars(message, NULL);
-	std::cout<<"C++: The value of the message field is \""<<message<<"\"\n";
+	std::cout<<"C++: The value of the message field is \""<<cMessage<<"\"\n";
 	env->ReleaseStringUTFChars(message, cMessage);
 
 	// Create a new jstring from the env
@@ -97,4 +97,21 @@ JNIEXPORT void JNICALL Java_HelloJNI_modifyStaticVariable(JNIEnv * env, jobject 
 	// Change the value of the static member field
 	dNumberValue = 0.0;
 	env->SetStaticDoubleField(klass, dNumberID, dNumberValue);
+}
+
+JNIEXPORT void JNICALL Java_HelloJNI_sModifyStaticVariable(JNIEnv * env, jclass klass) {
+	// Get the fieldID of the static variable
+		jfieldID dNumberID = env->GetStaticFieldID(klass, "dNumber", "D");
+		if (NULL == dNumberID) {
+			std::cerr<<"Could not get the field if of the static member variable dNumber of type double";
+			return;
+		}
+
+		// Get the value of the static member field
+		jdouble dNumberValue = env->GetStaticDoubleField(klass, dNumberID);
+		std::cout<<"C++: The value of the dNumber is "<<dNumberValue<<"\n";
+
+		// Change the value of the static member field
+		dNumberValue = 100.0;
+		env->SetStaticDoubleField(klass, dNumberID, dNumberValue);
 }
