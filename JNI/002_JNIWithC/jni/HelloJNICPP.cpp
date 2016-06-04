@@ -40,3 +40,40 @@ JNIEXPORT jdoubleArray JNICALL Java_HelloJNI_sumAndAverage(JNIEnv * env, jobject
 	env->SetDoubleArrayRegion(outJNIArray, 0, 2, dArray);
 	return outJNIArray;
 }
+
+JNIEXPORT void JNICALL Java_HelloJNI_modifyInstanceVariables(JNIEnv * env, jobject thisObj) {
+	// Get the class reference of the object
+	jclass kclass = env->GetObjectClass(thisObj);
+
+	// Get the field ID of the member variable (int number)
+	jfieldID numberID = env->GetFieldID(kclass, "number", "I");
+	if (NULL == numberID) {
+		std::cerr<<"Could not get the field id of the member variable number of type int";
+		return;
+	}
+
+	// Get the value of the number member variable
+	jint numberValue = env->GetIntField(thisObj, numberID);
+	cout<<"C++: The value of the number field is "<<numberValue;
+
+	// change the value of the number member variable
+	env->SetIntField(thisObj, numberID, 100);
+
+	// Get the field ID of the member variable (String message)
+	jfieldID messageID = env->GetFieldID(kclass, "message", "Ljava/lang/String;");
+	if (NULL == messageID) {
+		std::cerr<<"Could not get the field id of the member variable message of type String";
+		return;
+	}
+
+	// Get the object first from the object
+	jstring message = (jstring)env->GetObjectField(thisObj, messageID);
+
+	// Create a C String from the jstring
+	const char * cMessage = env->GetStringUTFChars(message, NULL);
+	std::cout<<"C++: The value of the message field is \""<<message<<"\"";
+	env->ReleaseStringUTFChars(message, cMessage);
+
+
+
+}

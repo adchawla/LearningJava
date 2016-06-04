@@ -47,6 +47,14 @@ JNIEXPORT jstring JNICALL Java_HelloJNI_sayHello3
 JNIEXPORT jdoubleArray JNICALL Java_HelloJNI_sumAndAverage
   (JNIEnv *, jobject, jintArray);
 
+/*
+ * Class:     HelloJNI
+ * Method:    modifyInstanceVariables
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_HelloJNI_modifyInstanceVariables
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

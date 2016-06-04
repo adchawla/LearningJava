@@ -21,6 +21,13 @@ public class HelloJNI {
 	   //  return a double[2] array with [0] as sum and [1] as average
 	   private native double[] sumAndAverage(int[] numbers);
 	   
+	   // member variables
+	   public int number = 89;
+	   private String message = "I am the private member";
+	   
+	   // a native method which can change the instance variables of the object.
+	   private native void modifyInstanceVariables();
+	   
 	   // Test Driver
 	   public static void main(String[] args) {
 		  HelloJNI obj = new HelloJNI();
@@ -35,6 +42,12 @@ public class HelloJNI {
 	      double[] results = obj.sumAndAverage(numbers);
 	      System.out.println("In Java, the sum is " + results[0]);
 	      System.out.println("In Java, the average is " + results[1]);
+	      System.out.println("Before invocation of moidfyInstanceVariables function: number = "
+	    		  + obj.number +" message = \"" + obj.message + "\"");
+	      obj.modifyInstanceVariables();
+	      System.out.println("After invocation of moidfyInstanceVariables function: number = "
+	    		  + obj.number +" message = \"" + obj.message + "\"");
+	      
 	   }
 
 }
