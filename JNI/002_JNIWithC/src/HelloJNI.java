@@ -28,6 +28,12 @@ public class HelloJNI {
 	   // a native method which can change the instance variables of the object.
 	   private native void modifyInstanceVariables();
 	   
+	   // a static field
+	   private static double dNumber = 41.0;
+	   
+	   // a native method with can change the value of the static field.
+	   private native void modifyStaticVariable();
+	   
 	   // Test Driver
 	   public static void main(String[] args) {
 		  HelloJNI obj = new HelloJNI();
@@ -47,6 +53,12 @@ public class HelloJNI {
 	      obj.modifyInstanceVariables();
 	      System.out.println("After invocation of moidfyInstanceVariables function: number = "
 	    		  + obj.number +" message = \"" + obj.message + "\"");
+	      
+	      System.out.println("Before invocation of modifyStaticVariable function: dNumber = "
+	    		  + HelloJNI.dNumber );
+	      obj.modifyStaticVariable();
+	      System.out.println("After invocation of modifyStaticVariable function: dNumber = "
+	    		  + HelloJNI.dNumber );
 	      
 	   }
 

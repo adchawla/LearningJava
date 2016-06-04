@@ -54,7 +54,7 @@ JNIEXPORT void JNICALL Java_HelloJNI_modifyInstanceVariables(JNIEnv * env, jobje
 
 	// Get the value of the number member variable
 	jint numberValue = env->GetIntField(thisObj, numberID);
-	cout<<"C++: The value of the number field is "<<numberValue;
+	cout<<"C++: The value of the number field is "<<numberValue<<"\n";
 
 	// change the value of the number member variable
 	env->SetIntField(thisObj, numberID, 100);
@@ -66,14 +66,35 @@ JNIEXPORT void JNICALL Java_HelloJNI_modifyInstanceVariables(JNIEnv * env, jobje
 		return;
 	}
 
-	// Get the object first from the object
+	// Get the jojbect and then type case to jstring first from the object
 	jstring message = (jstring)env->GetObjectField(thisObj, messageID);
 
 	// Create a C String from the jstring
 	const char * cMessage = env->GetStringUTFChars(message, NULL);
-	std::cout<<"C++: The value of the message field is \""<<message<<"\"";
+	std::cout<<"C++: The value of the message field is \""<<message<<"\"\n";
 	env->ReleaseStringUTFChars(message, cMessage);
 
+	// Create a new jstring from the env
+	jstring newMessage = env->NewStringUTF("Haha! The message has been modified");
+	env->SetObjectField(thisObj, messageID, newMessage);
+}
 
+JNIEXPORT void JNICALL Java_HelloJNI_modifyStaticVariable(JNIEnv * env, jobject thisObj) {
+	// Get the class reference
+	jclass klass = env->GetObjectClass(thisObj);
 
+	// Get the fieldID of the static variable
+	jfieldID dNumberID = env->GetStaticFieldID(klass, "dNumber", "D");
+	if (NULL == dNumberID) {
+		std::cerr<<"Could not get the field if of the static member variable dNumber of type double";
+		return;
+	}
+
+	// Get the value of the static member field
+	jdouble dNumberValue = env->GetStaticDoubleField(klass, dNumberID);
+	std::cout<<"C++: The value of the dNumber is "<<dNumberValue<<"\n";
+
+	// Change the value of the static member field
+	dNumberValue = 0.0;
+	env->SetStaticDoubleField(klass, dNumberID, dNumberValue);
 }
